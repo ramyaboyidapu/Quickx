@@ -1,0 +1,201 @@
+<!doctype html>
+<!-- QuickX: Grocery Price Comparison & Python Data Analysis
+     Authors: QuickX Team
+     Description: Real-time quick-commerce cost analysis comparing Blinkit,
+     Instamart, and BigBasket across South Indian cities. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickX - Grocery Price Comparison & Python Data Analysis</title>
+    <meta name="description" content="QuickX: Real-time grocery price comparison engine and Python data analysis platform across Blinkit, Instamart, and BigBasket in South India." />
+    <meta property="og:title" content="QuickX - Grocery Price Comparison & Python Data Analysis" />
+    <meta property="og:description" content="QuickX: Real-time grocery price comparison engine and Python data analysis platform across Blinkit, Instamart, and BigBasket in South India." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Header -->
+    <header class="app-header" id="app-header">
+      <div class="header-container">
+        <!-- QuickX Branding -->
+        <div class="brand-section" id="brand-home-btn" title="QuickX Home">
+          <div class="brand-icon">⚡</div>
+          <div>
+            <h1 class="brand-title">Quick<span>X</span></h1>
+            <div class="brand-subtitle">
+              <span class="status-badge">
+                <span class="status-dot"></span>
+                <span id="db-count-badge">Live Store Feed</span>
+              </span>
+              <span>Blinkit &bull; Instamart &bull; BigBasket</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- South India Location Selector -->
+        <div class="location-selector" title="Select Delivery Location">
+          <span>📍</span>
+          <select id="location-select" class="location-select" aria-label="Select South India City">
+            <option value="All South India">All South India</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Kochi">Kochi</option>
+            <option value="Coimbatore">Coimbatore</option>
+            <option value="Visakhapatnam">Visakhapatnam</option>
+            <option value="Mysore">Mysore</option>
+            <option value="Vijayawada">Vijayawada</option>
+            <option value="Madurai">Madurai</option>
+            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+          </select>
+        </div>
+
+        <!-- Real-Time Product Search Bar -->
+        <div class="search-container">
+          <span class="search-icon-left">🔍</span>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Search groceries (e.g. Nandini Milk, Sona Masoori, Dosa Batter, Coffee)..."
+            autocomplete="off"
+          />
+          <button id="search-clear-btn" class="search-clear-btn" title="Clear search">✕</button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="header-actions">
+          <button id="btn-open-analytics" class="btn-secondary btn-python" title="View Python Data Analysis">
+            <span>🐍</span>
+            <span>Python Analysis</span>
+          </button>
+          <button id="btn-open-cart" class="btn-primary" title="Compare Cart Stores">
+            <span>🛒</span>
+            <span>Compare Cart</span>
+            <span id="cart-count-badge" class="cart-count-badge">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Grocery Categories Navigation -->
+    <nav class="categories-bar" aria-label="Grocery Categories">
+      <div class="categories-container" id="categories-list">
+        <!-- Dynamically injected via app.ts -->
+      </div>
+    </nav>
+
+    <!-- Subcategory & Platform Filter Controls -->
+    <div class="subfilter-bar" id="subfilter-bar">
+      <!-- Dynamically injected via app.ts -->
+    </div>
+
+    <!-- Main Content: Product Catalog & Comparison Cards -->
+    <main class="main-content">
+      <div class="results-meta">
+        <div class="results-heading">
+          <span id="results-heading">All Grocery Products</span>
+          <span class="results-count" id="results-count">Loading products...</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          Real-time prices refreshed across South Indian dark-stores
+        </div>
+      </div>
+
+      <!-- Product Cards Grid -->
+      <section class="products-grid" id="products-grid" aria-label="Grocery Products">
+        <!-- Rendered dynamically -->
+      </section>
+
+      <!-- Load More Pagination -->
+      <div class="load-more-container" id="load-more-container" style="display: none;">
+        <button id="btn-load-more" class="btn-load-more">Load More Items</button>
+      </div>
+    </main>
+
+    <!-- Mobile Floating Sticky Cart Bar -->
+    <aside id="mobile-cart-bar" class="mobile-cart-bar" style="display: none;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span>🛒</span>
+        <span id="mobile-cart-text" style="font-weight: 700; font-size: 0.85rem;">0 items in cart</span>
+      </div>
+      <span style="font-size: 0.75rem; font-weight: 800; background: #059669; color: #fff; padding: 4px 10px; border-radius: var(--radius-sm);">
+        Compare Stores &rarr;
+      </span>
+    </aside>
+
+    <!-- MODAL 1: Item Price Comparison Table Modal -->
+    <div class="modal-overlay" id="compare-modal" role="dialog" aria-modal="true">
+      <div class="modal-window">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <h3>Item Price Comparison Table</h3>
+            <p>Live prices compared across Blinkit, Instamart & BigBasket</p>
+          </div>
+          <button class="modal-close-btn" data-close-modal="compare-modal" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="compare-modal-body">
+          <!-- Injected via app.ts -->
+        </div>
+        <div class="modal-footer" id="compare-modal-footer">
+          <!-- Injected via app.ts -->
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2: Cart Comparison & Smart Split Modal -->
+    <div class="modal-overlay" id="cart-modal" role="dialog" aria-modal="true">
+      <div class="modal-window large">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <h3>QuickX Cart Comparison Summary</h3>
+            <p>Compare total cart cost across Blinkit, Instamart & BigBasket before checking out</p>
+          </div>
+          <button class="modal-close-btn" data-close-modal="cart-modal" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="cart-modal-body">
+          <!-- Injected via app.ts -->
+        </div>
+        <div class="modal-footer" id="cart-modal-footer">
+          <!-- Injected via app.ts -->
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 3: Python Data Analysis Dashboard Modal -->
+    <div class="modal-overlay" id="analytics-modal" role="dialog" aria-modal="true">
+      <div class="modal-window large">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <h3>🐍 QuickX: Python Data Analysis Dashboard</h3>
+            <p>Descriptive statistics, price variance, and regional South India analytics computed with Python</p>
+          </div>
+          <button class="modal-close-btn" data-close-modal="analytics-modal" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="analytics-modal-body">
+          <!-- Injected via app.ts -->
+        </div>
+        <div class="modal-footer">
+          <div style="font-size: 0.72rem; color: var(--text-muted);">
+            Computed using Python statistics & SQLite aggregation
+          </div>
+          <button class="btn-secondary" data-close-modal="analytics-modal">Close Analysis</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 4: Checkout Confirmation Modal -->
+    <div class="modal-overlay" id="checkout-modal" role="dialog" aria-modal="true">
+      <div class="modal-window" style="max-width: 460px;">
+        <div class="modal-body" id="checkout-modal-body">
+          <!-- Injected via app.ts -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Frontend Script -->
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>

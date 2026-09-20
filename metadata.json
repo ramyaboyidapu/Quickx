@@ -1,0 +1,6 @@
+{
+  "name": "QuickX",
+  "description": "Real-time grocery price comparison engine and Python data analysis platform for Blinkit, Instamart, and BigBasket across South Indian cities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
